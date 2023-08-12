@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model customers {
+  customer_id Int      @id @default(autoincrement())
+  name        String   @unique(map: "name") @db.VarChar(100)
+  address     String   @db.VarChar(255)
+  zipcode     Int
+  city        String   @db.VarChar(100)
+  country     String   @db.VarChar(100)
+  phone       Int
+  email       String   @db.VarChar(100)
+  contact     String   @db.VarChar(100)
+  comments    String?  @db.VarChar(100)
+  created_at  DateTime @db.DateTime(0)
+}
+
+model drivers {
+  driver_id   Int      @id @default(autoincrement())
+  firstname   String   @db.VarChar(255)
+  lastname    String   @db.VarChar(255)
+  dateofbirth DateTime @db.Date
+  phone       Int
+  users_id    Int?
+  created_at  DateTime @db.DateTime(0)
+
+  @@index([users_id], map: "DRIVERS_fk0")
+}
+
+model trucks {
+  truck_id   Int      @id @default(autoincrement())
+  name       String   @db.VarChar(255)
+  immat      String   @db.VarChar(100)
+  trailer    String   @db.VarChar(100)
+  created_at DateTime @db.DateTime(0)
+}
+
+model users {
+  user_id    Int       @id @default(autoincrement())
+  firstname  String    @db.VarChar(255)
+  lastname   String    @db.VarChar(255)
+  email      String    @unique(map: "email") @db.VarChar(255)
+  password   String    @db.VarChar(100)
+  role       String    @default("driver") @db.VarChar(10)
+  created_at DateTime? @db.DateTime(0)
+}
+
+model vouchers {
+  voucher_id   Int      @id @default(autoincrement())
+  number       Int
+  date         DateTime @db.Date
+  placestart   String   @db.VarChar(255)
+  placeend     String   @db.VarChar(255)
+  timestart    String   @db.VarChar(10)
+  timeend      String   @db.VarChar(10)
+  comments     String   @db.VarChar(255)
+  users_id     Int
+  drivers_id   Int
+  trucks_id    Int
+  customers_id Int?
+  created_at   DateTime @db.DateTime(0)
+
+  @@index([users_id], map: "VOUCHERS_fk0")
+  @@index([drivers_id], map: "VOUCHERS_fk1")
+  @@index([trucks_id], map: "VOUCHERS_fk2")
+  @@index([customers_id], map: "VOUCHERS_fk3")
+}
