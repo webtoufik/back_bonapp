@@ -14,7 +14,7 @@ export const getTruckById = async (req, res) => {
     try {
         const response = await prisma.trucks.findUnique({
             where: {
-                truck_id: Number(req.params.truck_id),
+                truck_id: Number(req.params.id),
             },
         })
         res.status(200).json(response)
@@ -26,13 +26,12 @@ export const getTruckById = async (req, res) => {
 export const createTruck = async (req, res) => {
     const { name, immat, trailer, created_at } = req.body
     try {
-        const now = new Date();
         const truck = await prisma.trucks.create({
             data: {
                 name: name,
                 immat: immat,
                 trailer: trailer,
-                created_at: now,
+                created_at: new Date(),
             },
         })
         res.status(201).json(truck)
@@ -64,7 +63,7 @@ export const deleteTruck = async (req, res) => {
     try {
         const truck = await prisma.trucks.delete({
             where: {
-                truck_id: Number(req.params.truck_id),
+                truck_id: Number(req.params.id),
             },
         })
         res.status(200).json(truck)

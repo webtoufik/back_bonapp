@@ -4,9 +4,9 @@ import { getTrucks, getTruckById, createTruck, updateTruck, deleteTruck } from '
 const router = express.Router()
 
 router.get('/api/v1/trucks', getTrucks)
-router.get('/api/v1/truck/:truck_id', getTruckById)
+router.get('/api/v1/truck/:id', getTruckById)
 router.post('/api/v1/addTruck', createTruck)
 router.patch('/api/v1/editTruck/:id', updateTruck)
-router.delete('/api/v1/deleteTruck/:truck_id', deleteTruck)
+router.delete('/api/v1/deleteTruck/:id', deleteTruck)
 
 export default router
