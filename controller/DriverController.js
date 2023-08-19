@@ -26,12 +26,12 @@ export const getDriverById = async (req, res) => {
 export const createDriver = async (req, res) => {
     const { firstname, lastname, dateofbirth, phone, created_at } = req.body
     try {
-        const driver = await prisma.driver.create({
+        const driver = await prisma.drivers.create({
             data: {
                 firstname: firstname,
-                lastname: lastname,
-                dateofbirth: dateofbirth,
-                phone: phone, 
+                lastname: lastname, 
+                dateofbirth: new Date(dateofbirth),
+                phone: parseInt(phone), 
                 created_at: new Date(),
             },
         })
@@ -51,8 +51,8 @@ export const updateDriver = async (req, res) => {
             data: {
                 firstname: firstname,
                 lastname: lastname,
-                dateofbirth: dateofbirth,
-                phone: phone, 
+                dateofbirth: new Date(dateofbirth),
+                phone: parseInt(phone),
             },
         })
         res.status(200).json(driver)
