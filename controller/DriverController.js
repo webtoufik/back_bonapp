@@ -31,7 +31,7 @@ export const createDriver = async (req, res) => {
                 firstname: firstname,
                 lastname: lastname, 
                 dateofbirth: new Date(dateofbirth),
-                phone: parseInt(phone), 
+                phone: phone, 
                 created_at: new Date(),
             },
         })
@@ -52,7 +52,7 @@ export const updateDriver = async (req, res) => {
                 firstname: firstname,
                 lastname: lastname,
                 dateofbirth: new Date(dateofbirth),
-                phone: parseInt(phone),
+                phone: phone,
             },
         })
         res.status(200).json(driver)

@@ -4,6 +4,8 @@ import dotenv from 'dotenv'
 import TruckRoute from './routes/TruckRoute.js'
 import DriverRoute from './routes/DriverRoute.js'
 import CustomerRoute from './routes/CustomerRoute.js'
+import UserRoute from './routes/UserRoute.js'
+import VoucherRoute from './routes/VoucherRoute.js'
 dotenv.config()
 
 const app = express()
@@ -18,6 +20,9 @@ app.get('/', (req, res) => {
 app.use(TruckRoute)
 app.use(DriverRoute)
 app.use(CustomerRoute)
+app.use(UserRoute)
+app.use(VoucherRoute)
+
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`)
